@@ -1,0 +1,118 @@
+<div>
+  <!-- Topic Header -->
+  <div class="pb-5 border-b border-gray-200 sm:flex sm:items-center sm:justify-between">
+    <div>
+      <h3 class="text-2xl font-bold leading-6 text-gray-900 flex items-center">
+        <%= @topic.name %>
+        <span class="ml-2 inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium <%= @topic.active? ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800' %>">
+          <%= @topic.active? ? 'Active' : 'Inactive' %>
+        </span>
+      </h3>
+      <p class="mt-2 text-sm text-gray-500">
+        <%= @topic.description %>
+      </p>
+    </div>
+    <div class="mt-3 flex sm:mt-0 sm:ml-4">
+      <%= link_to "Edit Topic", edit_admin_topic_path(@topic), class: "inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500" %>
+      <%= link_to "New Question", new_admin_topic_question_path(@topic), class: "ml-3 inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500" %>
+    </div>
+  </div>
+
+  <!-- Topic Stats -->
+  <div class="mt-6 grid grid-cols-1 gap-5 sm:grid-cols-3">
+    <div class="px-4 py-5 bg-white shadow rounded-lg overflow-hidden sm:p-6">
+      <dt class="text-sm font-medium text-gray-500 truncate">Total Questions</dt>
+      <dd class="mt-1 text-3xl font-semibold text-gray-900"><%= @topic.questions_count %></dd>
+    </div>
+    <div class="px-4 py-5 bg-white shadow rounded-lg overflow-hidden sm:p-6">
+      <dt class="text-sm font-medium text-gray-500 truncate">Active Questions</dt>
+      <dd class="mt-1 text-3xl font-semibold text-gray-900"><%= @topic.active_questions_count %></dd>
+    </div>
+    <div class="px-4 py-5 bg-white shadow rounded-lg overflow-hidden sm:p-6">
+      <dt class="text-sm font-medium text-gray-500 truncate">Used in Tests</dt>
+      <dd class="mt-1 text-3xl font-semibold text-gray-900"><%= @topic.tests_count %></dd>
+    </div>
+  </div>
+
+  <!-- Questions List -->
+  <div class="mt-8">
+    <div class="sm:flex sm:items-center">
+      <div class="sm:flex-auto">
+        <h2 class="text-xl font-semibold text-gray-900">Questions</h2>
+        <p class="mt-2 text-sm text-gray-700">
+          A list of all questions in this topic.
+        </p>
+      </div>
+    </div>
+
+    <div class="mt-8 flex flex-col">
+      <div class="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
+        <div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
+          <div class="overflow-hidden shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">
+            <table class="min-w-full divide-y divide-gray-300">
+              <thead class="bg-gray-50">
+                <tr>
+                  <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">Question</th>
+                  <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Correct Answer</th>
+                  <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Status</th>
+                  <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-6">
+                    <span class="sr-only">Actions</span>
+                  </th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-gray-200 bg-white">
+                <% @questions.each do |question| %>
+                  <tr>
+                    <td class="whitespace-normal py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
+                      <%= link_to truncate(question.question_text, length: 100), admin_topic_question_path(@topic, question), class: "hover:text-blue-600" %>
+                    </td>
+                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                      Option <%= question.correct_answer %>
+                    </td>
+                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                      <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium <%= question.active? ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800' %>">
+                        <%= question.active? ? 'Active' : 'Inactive' %>
+                      </span>
+                    </td>
+                    <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
+                      <%= link_to "Edit", edit_admin_topic_question_path(@topic, question), class: "text-blue-600 hover:text-blue-900" %>
+                      <%= link_to "Delete", admin_topic_question_path(@topic, question), method: :delete, data: { confirm: "Are you sure?" }, class: "ml-4 text-red-600 hover:text-red-900" %>
+                    </td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pagination -->
+    <% if @questions.total_pages > 1 %>
+      <div class="flex items-center justify-between border-t border-gray-200 bg-white px-4 py-3 sm:px-6">
+        <div class="flex flex-1 justify-between sm:hidden">
+          <%= link_to_previous_page @questions, 'Previous', class: "relative inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50" %>
+          <%= link_to_next_page @questions, 'Next', class: "relative ml-3 inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50" %>
+        </div>
+        <div class="hidden sm:flex sm:flex-1 sm:items-center sm:justify-between">
+          <div>
+            <p class="text-sm text-gray-700">
+              Showing
+              <span class="font-medium"><%= @questions.offset_value + 1 %></span>
+              to
+              <span class="font-medium"><%= @questions.offset_value + @questions.length %></span>
+              of
+              <span class="font-medium"><%= @questions.total_count %></span>
+              results
+            </p>
+          </div>
+          <div>
+            <nav class="isolate inline-flex -space-x-px rounded-md shadow-sm" aria-label="Pagination">
+              <%= paginate @questions, window: 2 %>
+            </nav>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div> 

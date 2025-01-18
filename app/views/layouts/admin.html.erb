@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html class="h-full bg-gray-50">
+  <head>
+    <title>Pre Screen AI - Admin</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
+  </head>
+
+  <body class="h-full">
+    <div class="min-h-full">
+      <!-- Top Navigation -->
+      <nav class="bg-white border-b border-gray-200">
+        <div class="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
+          <div class="flex justify-between h-16">
+            <div class="flex">
+              <!-- Logo -->
+              <div class="flex items-center flex-shrink-0">
+                <%= link_to admin_root_path, class: "text-2xl font-bold text-blue-600" do %>
+                  Pre Screen AI
+                <% end %>
+              </div>
+              <!-- Navigation Links -->
+              <div class="hidden sm:ml-6 sm:flex sm:space-x-8">
+                <%= link_to "Dashboard", admin_root_path, 
+                    class: "#{current_page?(admin_root_path) ? 'border-blue-500' : 'border-transparent'} text-gray-900 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium" %>
+                <%= link_to "Tests", admin_tests_path,
+                    class: "#{controller_name == 'tests' ? 'border-blue-500' : 'border-transparent'} text-gray-900 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium" %>
+                <%= link_to "Topics", admin_topics_path,
+                    class: "#{controller_name == 'topics' ? 'border-blue-500' : 'border-transparent'} text-gray-900 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium" %>
+              </div>
+            </div>
+            <!-- User Menu -->
+            <div class="flex items-center">
+              <div class="relative ml-3">
+                <div>
+                  <button type="button" class="flex text-sm bg-white rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500" id="user-menu-button">
+                    <span class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-blue-100">
+                      <span class="text-sm font-medium leading-none text-blue-700">
+                        <%= "#{current_admin_user&.first_name&.first} #{current_admin_user&.last_name&.first}" %>
+                      </span>
+                    </span>
+                  </button>
+                </div>
+                <!-- Dropdown menu -->
+                <div class="hidden absolute right-0 z-10 w-48 py-1 mt-2 origin-top-right bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5" role="menu">
+                  <%= button_to "Sign out", destroy_admin_user_session_path, method: :delete, class: "block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left" %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+
+      <!-- Main Content -->
+      <main>
+        <div class="py-6 mx-auto max-w-7xl sm:px-6 lg:px-8">
+          <!-- Flash Messages -->
+          <% if notice %>
+            <div class="p-4 mb-4 text-sm text-blue-700 bg-blue-100 rounded-lg">
+              <%= notice %>
+            </div>
+          <% end %>
+          
+          <% if alert %>
+            <div class="p-4 mb-4 text-sm text-red-700 bg-red-100 rounded-lg">
+              <%= alert %>
+            </div>
+          <% end %>
+
+          <!-- Page Content -->
+          <%= yield %>
+        </div>
+      </main>
+    </div>
+
+    <!-- JavaScript for dropdown menu -->
+    <script>
+      document.getElementById('user-menu-button').addEventListener('click', function() {
+        const dropdown = this.nextElementSibling;
+        dropdown.classList.toggle('hidden');
+      });
+
+      document.addEventListener('click', function(event) {
+        if (!event.target.closest('#user-menu-button')) {
+          const dropdown = document.querySelector('[role="menu"]');
+          if (!dropdown.classList.contains('hidden')) {
+            dropdown.classList.add('hidden');
+          }
+        }
+      });
+    </script>
+  </body>
+</html> 

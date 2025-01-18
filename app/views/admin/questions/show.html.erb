@@ -1,0 +1,106 @@
+<div class="max-w-3xl mx-auto">
+  <!-- Question Header -->
+  <div class="pb-5 border-b border-gray-200 sm:flex sm:items-center sm:justify-between">
+    <div>
+      <div class="flex items-center">
+        <%= link_to admin_topic_path(@topic), class: "text-sm text-blue-600 hover:text-blue-900" do %>
+          <span class="inline-flex items-center">
+            <svg class="w-5 h-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+            </svg>
+            Back to <%= @topic.name %>
+          </span>
+        <% end %>
+      </div>
+      <h1 class="mt-2 text-2xl font-bold text-gray-900">Question Details</h1>
+    </div>
+    <div class="mt-4 flex sm:mt-0 sm:ml-4">
+      <%= link_to "Edit Question", edit_admin_topic_question_path(@topic, @question), class: "inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500" %>
+    </div>
+  </div>
+
+  <!-- Question Content -->
+  <div class="mt-8">
+    <div class="overflow-hidden bg-white shadow sm:rounded-lg">
+      <div class="px-4 py-5 sm:p-6">
+        <div class="space-y-6">
+          <!-- Question Text -->
+          <div>
+            <h3 class="text-lg font-medium text-gray-900">Question</h3>
+            <p class="mt-2 text-gray-600">
+              <%= @question.question_text %>
+            </p>
+          </div>
+
+          <!-- Answer Options -->
+          <div>
+            <h3 class="text-lg font-medium text-gray-900">Answer Options</h3>
+            <div class="mt-4 space-y-4">
+              <% %w[A B C D].each do |option| %>
+                <div class="flex items-start">
+                  <div class="flex items-center h-5">
+                    <div class="w-4 h-4 <%= @question.correct_answer == option ? 'bg-green-500' : 'bg-gray-200' %> rounded-full"></div>
+                  </div>
+                  <div class="ml-3">
+                    <p class="text-sm text-gray-700">
+                      <span class="font-medium">Option <%= option %>:</span>
+                      <%= @question.send("option_#{option.downcase}") %>
+                    </p>
+                  </div>
+                </div>
+              <% end %>
+            </div>
+          </div>
+
+          <!-- Status -->
+          <div>
+            <h3 class="text-lg font-medium text-gray-900">Status</h3>
+            <div class="mt-2">
+              <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium <%= @question.active? ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800' %>">
+                <%= @question.active? ? 'Active' : 'Inactive' %>
+              </span>
+            </div>
+          </div>
+
+          <!-- Metadata -->
+          <div class="border-t border-gray-200 pt-6">
+            <dl class="grid grid-cols-1 gap-x-4 gap-y-6 sm:grid-cols-2">
+              <div>
+                <dt class="text-sm font-medium text-gray-500">Created</dt>
+                <dd class="mt-1 text-sm text-gray-900">
+                  <%= time_ago_in_words(@question.created_at) %> ago
+                </dd>
+              </div>
+              <div>
+                <dt class="text-sm font-medium text-gray-500">Last Updated</dt>
+                <dd class="mt-1 text-sm text-gray-900">
+                  <%= time_ago_in_words(@question.updated_at) %> ago
+                </dd>
+              </div>
+            </dl>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Danger Zone -->
+  <div class="mt-8">
+    <div class="bg-white shadow sm:rounded-lg">
+      <div class="px-4 py-5 sm:p-6">
+        <h3 class="text-lg font-medium leading-6 text-red-800">Danger Zone</h3>
+        <div class="mt-2 max-w-xl text-sm text-gray-500">
+          <p>Once you delete a question, there is no going back. Please be certain.</p>
+        </div>
+        <div class="mt-5">
+          <%= button_to admin_topic_question_path(@topic, @question), 
+              method: :delete,
+              data: { confirm: "Are you sure you want to delete this question? This action cannot be undone." },
+              class: "inline-flex items-center justify-center px-4 py-2 border border-transparent font-medium rounded-md text-red-700 bg-red-100 hover:bg-red-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:text-sm" do %>
+            Delete Question
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> 

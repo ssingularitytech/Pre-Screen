@@ -1,0 +1,28 @@
+<div class="max-w-3xl mx-auto">
+  <div class="pb-5 border-b border-gray-200">
+    <div class="sm:flex sm:items-center sm:justify-between">
+      <div class="sm:w-0 sm:flex-1">
+        <div class="flex items-center">
+          <%= link_to admin_test_path(@test), class: "text-sm text-blue-600 hover:text-blue-900" do %>
+            <span class="inline-flex items-center">
+              <svg class="w-5 h-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+              </svg>
+              Back to Test
+            </span>
+          <% end %>
+        </div>
+        <h1 class="mt-2 text-2xl font-bold text-gray-900">
+          New Invitee
+        </h1>
+        <p class="mt-1 text-sm text-gray-500">
+          Add a new invitee to take the test "<%= @test.name %>".
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="mt-6">
+    <%= render 'form', test: @test, invitee: @invitee %>
+  </div>
+</div> 

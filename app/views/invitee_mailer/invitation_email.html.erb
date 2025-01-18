@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <div style="max-width: 600px; margin: 0 auto; padding: 20px; font-family: Arial, sans-serif;">
+      <h1 style="color: #2563eb;">Test Invitation</h1>
+      
+      <p>Hello <%= @invitee.first_name %>,</p>
+      
+      <p>You have been invited to take a test on our platform.</p>
+      
+      <div style="margin: 30px 0;">
+        <p><strong>Test Details:</strong></p>
+        <ul>
+          <li>Test Name: <%= @test.name %></li>
+          <li>Duration: <%= @test.duration %> minutes</li>
+        </ul>
+      </div>
+      
+      <div style="margin: 30px 0;">
+        <a href="<%= @url %>" style="background-color: #2563eb; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px;">
+          Start Test
+        </a>
+      </div>
+      
+      <p>This link is unique to you and will expire after the test is completed.</p>
+      
+      <p>Best of luck!</p>
+      
+      <div style="margin-top: 40px; padding-top: 20px; border-top: 1px solid #e5e7eb; color: #6b7280; font-size: 14px;">
+        <p>If you did not expect this invitation, please ignore this email.</p>
+      </div>
+    </div>
+  </body>
+</html>

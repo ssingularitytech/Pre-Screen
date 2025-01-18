@@ -1,0 +1,20 @@
+Test Invitation
+===============
+
+Hello <%= @invitee.first_name %>,
+
+You have been invited to take a test on our platform.
+
+Test Details:
+- Test Name: <%= @test.name %>
+- Duration: <%= @test.duration %> minutes
+
+To start the test, please visit this URL:
+<%= @url %>
+
+This link is unique to you and will expire after the test is completed.
+
+Best of luck!
+
+---
+If you did not expect this invitation, please ignore this email.

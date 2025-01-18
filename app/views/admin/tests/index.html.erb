@@ -1,0 +1,121 @@
+<div>
+  <!-- Page header -->
+  <div class="pb-5 border-b border-gray-200 sm:flex sm:items-center sm:justify-between">
+    <div>
+      <h1 class="text-2xl font-bold text-gray-900">Tests</h1>
+      <p class="mt-1 text-sm text-gray-500">
+        Manage your tests and track invitee progress.
+      </p>
+    </div>
+    <div class="mt-4 flex sm:mt-0 sm:ml-4">
+      <%= link_to "New Test", new_admin_test_path, class: "inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500" %>
+    </div>
+  </div>
+
+  <!-- Tests List -->
+  <div class="mt-8">
+    <div class="flex flex-col">
+      <div class="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
+        <div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
+          <div class="overflow-hidden shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">
+            <table class="min-w-full divide-y divide-gray-300">
+              <thead class="bg-gray-50">
+                <tr>
+                  <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">Test Name</th>
+                  <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Topics</th>
+                  <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Duration</th>
+                  <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Passing Score</th>
+                  <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Status</th>
+                  <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Invitees</th>
+                  <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-6">
+                    <span class="sr-only">Actions</span>
+                  </th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-gray-200 bg-white">
+                <% @tests.each do |test| %>
+                  <tr>
+                    <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm sm:pl-6">
+                      <div class="flex items-center">
+                        <div>
+                          <div class="font-medium text-gray-900">
+                            <%= link_to test.name, admin_test_path(test), class: "hover:text-blue-600" %>
+                          </div>
+                          <div class="text-gray-500">
+                            <%= truncate(test.description, length: 60) %>
+                          </div>
+                        </div>
+                      </div>
+                    </td>
+                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                      <div class="flex flex-wrap gap-1">
+                        <% test.topics.each do |topic| %>
+                          <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-blue-100 text-blue-800">
+                            <%= topic.name %>
+                          </span>
+                        <% end %>
+                      </div>
+                    </td>
+                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                      <%= pluralize(test.duration, 'minute') %>
+                    </td>
+                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                      <%= test.passing_score %>%
+                    </td>
+                    <td class="whitespace-nowrap px-3 py-4 text-sm">
+                      <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium <%= test.active? ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800' %>">
+                        <%= test.active? ? 'Active' : 'Inactive' %>
+                      </span>
+                    </td>
+                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                      <div class="flex flex-col">
+                        <span class="font-medium"><%= test.invitees.count %> total</span>
+                        <span class="text-xs text-gray-400">
+                          <%= test.invitees.completed.count %> completed
+                        </span>
+                      </div>
+                    </td>
+                    <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
+                      <div class="flex justify-end space-x-3">
+                        <%= link_to "Edit", edit_admin_test_path(test), class: "text-blue-600 hover:text-blue-900" %>
+                        <%= button_to "Delete", admin_test_path(test), method: :delete, data: { confirm: "Are you sure?" }, class: "text-red-600 hover:text-red-900" %>
+                      </div>
+                    </td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pagination -->
+    <% if @tests.total_pages > 1 %>
+      <div class="flex items-center justify-between border-t border-gray-200 bg-white px-4 py-3 sm:px-6 mt-4">
+        <div class="flex flex-1 justify-between sm:hidden">
+          <%= link_to_previous_page @tests, 'Previous', class: "relative inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50" %>
+          <%= link_to_next_page @tests, 'Next', class: "relative ml-3 inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50" %>
+        </div>
+        <div class="hidden sm:flex sm:flex-1 sm:items-center sm:justify-between">
+          <div>
+            <p class="text-sm text-gray-700">
+              Showing
+              <span class="font-medium"><%= @tests.offset_value + 1 %></span>
+              to
+              <span class="font-medium"><%= @tests.offset_value + @tests.length %></span>
+              of
+              <span class="font-medium"><%= @tests.total_count %></span>
+              results
+            </p>
+          </div>
+          <div>
+            <nav class="isolate inline-flex -space-x-px rounded-md shadow-sm" aria-label="Pagination">
+              <%= paginate @tests, window: 2 %>
+            </nav>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div> 
