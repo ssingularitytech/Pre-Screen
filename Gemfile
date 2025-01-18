@@ -52,9 +52,9 @@ group :development do
   gem "web-console"
   gem "erb-formatter"
   gem "rename"
-
+  
   # Highlight the fine-grained location where an error occurred [https://github.com/ruby/error_highlight]
-  gem "error_highlight", "0.5.1", platforms: [ :ruby ]
+  gem "error_highlight", "0.7.0", platforms: [ :ruby ]
 end
 
 group :test do
@@ -62,6 +62,8 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
 end
+
+gem 'dotenv-rails', groups: [:development, :test]
 
 # Authentication
 gem "devise"

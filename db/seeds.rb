@@ -1014,17 +1014,18 @@ CSS_QUESTIONS = [
 ]
 
 
+ADMIN_EMAIL = ENV['ADMIN_EMAIL']
+ADMIN_PASSWORD = ENV['ADMIN_PASSWORD']
 
 
-
-admin_user = AdminUser.find_by(email: 'admin@example.com')
+admin_user = AdminUser.find_by(email: ADMIN_EMAIL)
 
 if admin_user.nil?
   puts "Creating admin user"
   admin_user = AdminUser.create(
-    email: 'admin@example.com', 
-    password: 'password', 
-    password_confirmation: 'password',
+    email: ADMIN_EMAIL, 
+    password: ADMIN_PASSWORD, 
+    password_confirmation: ADMIN_PASSWORD,
     first_name: 'Admin', 
     last_name: 'User'
   )
