@@ -29,6 +29,10 @@ class Question < ApplicationRecord
     options[correct_answer]
   end
 
+  def correct_option_index
+    options.keys.index(correct_answer)
+  end
+
   def to_test_hash
     {
       id: id,

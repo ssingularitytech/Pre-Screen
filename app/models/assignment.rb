@@ -38,6 +38,7 @@ class Assignment < ApplicationRecord
   end
 
   def time_remaining
+    return test.duration * 60 if started_at.nil?
     return 0 if assignment_status_completed? || !started_at
 
     elapsed = Time.current - started_at
@@ -87,7 +88,7 @@ class Assignment < ApplicationRecord
 
     correct_answers = session_data['questions'].count do |q|
       question = Question.find_by(id: q['id'])
-      question&.correct_answer == q['answer']
+      question&.correct_option_index == q['answer'].to_i
     end
 
     self.score = (correct_answers.to_f / total_questions * 100).round(2)

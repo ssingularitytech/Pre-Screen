@@ -1,6 +1,8 @@
 class TestsController < ApplicationController
+  skip_before_action :authenticate_admin_user!
   before_action :set_test
   before_action :set_assignment
+  before_action :set_invitee
   before_action :check_test_access
 
   def show
@@ -57,9 +59,17 @@ class TestsController < ApplicationController
     redirect_to root_path, alert: 'Invalid test access.'
   end
 
+  def set_invitee
+    @invitee = @assignment.invitee if @assignment
+  end
+
   def check_test_access
-    if @assignment.expired?
-      redirect_to root_path, alert: 'Test has expired.'
+    return unless @assignment && @invitee
+
+    if @assignment.completed?
+      render :completed
+    elsif @assignment.expired? || Time.current > @invitee.expires_at
+      render :expired
     end
   end
 
