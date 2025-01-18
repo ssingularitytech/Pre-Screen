@@ -139,7 +139,7 @@
                   <div class="flex items-center space-x-4">
                     <div class="flex-1 min-w-0">
                       <p class="text-sm font-medium text-gray-900 truncate">
-                        <%= link_to assignment.invitee.full_name, admin_test_path(assignment.test), class: "hover:text-blue-600" %>
+                        <%= link_to assignment.invitee.name, admin_test_path(assignment.test), class: "hover:text-blue-600" %>
                       </p>
                       <p class="text-sm text-gray-500">
                         <%= assignment.test.name %> • 
@@ -148,12 +148,12 @@
                     </div>
                     <div>
                       <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium
-                        <%= case assignment.status
+                        <%= case assignment.assignment_status
                             when 'completed' then 'bg-green-100 text-green-800'
                             when 'in_progress' then 'bg-yellow-100 text-yellow-800'
                             else 'bg-gray-100 text-gray-800'
                             end %>">
-                        <%= assignment.status.titleize %>
+                        <%= assignment.assignment_status.titleize %>
                       </span>
                     </div>
                   </div>

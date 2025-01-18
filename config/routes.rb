@@ -13,7 +13,11 @@ Rails.application.routes.draw do
         get :results
         get :analytics
       end
-      resources :invitees, only: [:index, :create, :destroy]
+      resources :invitees do
+        member do
+          post :resend_invitation
+        end
+      end
     end
     
     root to: 'dashboard#index'
@@ -23,8 +27,7 @@ Rails.application.routes.draw do
   resources :tests, only: [:show] do
     member do
       post :start
-      post :submit_answer
-      post :complete
+      post :answer
     end
   end
 

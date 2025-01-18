@@ -22,6 +22,10 @@ class Test < ApplicationRecord
     topics.joins(:questions).where(questions: { active: true }).count
   end
 
+  def random_questions(limit = nil)
+    questions.active.order('RANDOM()').limit(limit)
+  end
+
   def average_score
     assignments.where.not(score: nil).average(:score) || 0
   end

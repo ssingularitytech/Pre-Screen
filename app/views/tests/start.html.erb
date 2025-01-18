@@ -1,0 +1,67 @@
+<div class="min-h-screen bg-gray-50 py-8">
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="bg-white shadow sm:rounded-lg">
+      <!-- Test Header -->
+      <div class="px-4 py-5 sm:p-6">
+        <h1 class="text-2xl font-bold text-gray-900"><%= @test.name %></h1>
+        <p class="mt-2 text-sm text-gray-500"><%= @test.description %></p>
+      </div>
+
+      <!-- Test Information -->
+      <div class="border-t border-gray-200 px-4 py-5 sm:p-6">
+        <dl class="grid grid-cols-1 gap-5 sm:grid-cols-2">
+          <div>
+            <dt class="text-sm font-medium text-gray-500">Duration</dt>
+            <dd class="mt-1 text-sm text-gray-900"><%= @test.duration %> minutes</dd>
+          </div>
+
+          <div>
+            <dt class="text-sm font-medium text-gray-500">Total Questions</dt>
+            <dd class="mt-1 text-sm text-gray-900"><%= @test.total_questions %></dd>
+          </div>
+
+          <div>
+            <dt class="text-sm font-medium text-gray-500">Passing Score</dt>
+            <dd class="mt-1 text-sm text-gray-900"><%= @test.passing_score %>%</dd>
+          </div>
+
+          <div>
+            <dt class="text-sm font-medium text-gray-500">Expires At</dt>
+            <dd class="mt-1 text-sm text-gray-900"><%= l(@invitee.expires_at, format: :long) %></dd>
+          </div>
+        </dl>
+      </div>
+
+      <!-- Instructions -->
+      <div class="border-t border-gray-200 px-4 py-5 sm:p-6">
+        <h3 class="text-lg font-medium text-gray-900">Instructions</h3>
+        <div class="mt-2 text-sm text-gray-500 space-y-3">
+          <p>Please read the following instructions carefully before starting the test:</p>
+          <ul class="list-disc pl-5 space-y-2">
+            <li>Once you start the test, the timer will begin and cannot be paused.</li>
+            <li>You must complete the test within <%= @test.duration %> minutes.</li>
+            <li>Each question must be answered before moving to the next one.</li>
+            <li>You cannot go back to previous questions once answered.</li>
+            <li>A minimum score of <%= @test.passing_score %>% is required to pass the test.</li>
+            <li>Ensure you have a stable internet connection before starting.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Start Button -->
+      <div class="border-t border-gray-200 px-4 py-5 sm:p-6">
+        <div class="flex items-center justify-between">
+          <div class="text-sm text-gray-500">
+            <p>Ready to begin? Click the button to start your test.</p>
+          </div>
+          <%= button_to start_test_path(@test, token: params[:token]), method: :post, class: "inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500" do %>
+            Start Test
+            <svg class="ml-2 -mr-1 h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+            </svg>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> 

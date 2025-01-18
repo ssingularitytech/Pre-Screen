@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_01_18_042213) do
+ActiveRecord::Schema[7.2].define(version: 2025_01_18_063144) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -38,6 +38,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_01_18_042213) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "assignment_status", default: 0, null: false
+    t.jsonb "session_data", default: {}, null: false
     t.index ["invitee_id"], name: "index_assignments_on_invitee_id"
     t.index ["test_id", "invitee_id"], name: "index_assignments_on_test_id_and_invitee_id", unique: true
     t.index ["test_id"], name: "index_assignments_on_test_id"
@@ -49,6 +50,8 @@ ActiveRecord::Schema[7.2].define(version: 2025_01_18_042213) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "token"
+    t.text "notes"
+    t.datetime "expires_at", null: false
     t.index ["token"], name: "index_invitees_on_token"
   end
 

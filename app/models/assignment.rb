@@ -6,6 +6,7 @@ class Assignment < ApplicationRecord
   # Validations
   validates :test, presence: true
   validates :invitee, presence: true
+
   # Enums
   enum :assignment_status, {
     pending: 0,
@@ -13,9 +14,6 @@ class Assignment < ApplicationRecord
     completed: 2,
     expired: 3
   }, default: :pending, prefix: true
-
-  # Store test session data
-  serialize :session_data, coder: JSON
 
   # Callbacks
   before_create :initialize_session_data
@@ -52,12 +50,30 @@ class Assignment < ApplicationRecord
     time_remaining.zero?
   end
 
+  def completed?
+    assignment_status_completed?
+  end
+
+  def in_progress?
+    assignment_status_in_progress?
+  end 
+
+  def pending?
+    assignment_status_pending?
+  end
+
   private
 
   def initialize_session_data
     questions = test.random_questions(test.total_questions)
     self.session_data = {
-      questions: questions.map { |q| { id: q.id, answered: false, answer: nil } },
+      questions: questions.map { |q| { 
+        id: q.id, 
+        question_text: q.question_text,
+        options: q.options,
+        answered: false, 
+        answer: nil 
+      }},
       current_question_index: 0
     }
   end
@@ -66,10 +82,14 @@ class Assignment < ApplicationRecord
     return unless assignment_status_completed?
     return if score.present?
 
-    total_questions = test.questions.count
+    total_questions = session_data['questions'].count
     return if total_questions.zero?
 
-    correct_answers = answers.count { |_, answer| answer['correct'] }
+    correct_answers = session_data['questions'].count do |q|
+      question = Question.find_by(id: q['id'])
+      question&.correct_answer == q['answer']
+    end
+
     self.score = (correct_answers.to_f / total_questions * 100).round(2)
   end
 end
