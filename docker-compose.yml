@@ -1,0 +1,37 @@
+version: "3.3"
+services:
+  postgres:
+    image: postgres:13-alpine
+    command: ["postgres", "-c", "fsync=false", "-c", "full_page_writes=off"]
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+    volumes:
+      - ./tmp/db:/var/lib/postgresql/data
+    networks:
+      - pre_screen_network
+  app:
+    build:
+      context: .
+      dockerfile: docker/app.Dockerfile
+    command: bash -c "bundle exec puma -C config/puma.rb"
+    environment:
+      PORT: 9169
+      RAILS_ENV: production
+      REDIS_URL: "redis://redis:6379/12"
+      RAILS_SERVE_STATIC_FILES: "true"
+      POSTGRES_HOST: postgres
+      POSTGRES_PORT: 5432
+    env_file:
+      - .env.production
+    volumes:
+      - .:/app
+    ports:
+      - "8180:8180"
+    depends_on:
+      - postgres
+    networks:
+      - pre_screen_network
+
+networks:
+  pre_screen_network:
