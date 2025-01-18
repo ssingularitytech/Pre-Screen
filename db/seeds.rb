@@ -506,253 +506,253 @@ PYTHON_QUESTIONS = [
 
 JAVASCRIPT_QUESTIONS = [
   {
-    question_text: 'Which of the following is used to define a block of code in Python?',
-    options: ['Semicolon', 'Indentation', 'Braces', 'Parentheses'],
+    question_text: 'Which of the following is a correct way to declare a variable in JavaScript?',
+    options: ['var myVariable;', 'let myVariable;', 'constant myVariable;', 'int myVariable;'],
     correct_option_index: 1
   },
   {
-    question_text: 'What is the output of print(2 ** 3)?',
-    options: ['5', '6', '8', '9'],
+    question_text: 'What does typeof null return?',
+    options: ['"null"', '"undefined"', '"object"', '"number"'],
     correct_option_index: 2
   },
   {
-    question_text: 'Which of the following is not a keyword in Python?',
-    options: ['pass', 'eval', 'execute', 'assert'],
-    correct_option_index: 2
-  },
-  {
-    question_text: 'What is the correct way to declare a function in Python?',
-    options: ['func myFunction():', 'function myFunction():', 'def myFunction():', 'declare myFunction():'],
-    correct_option_index: 2
-  },
-  {
-    question_text: 'What is the output of print(type([]))?',
-    options: ["<class 'array'>", "<class 'list'>", "<class 'tuple'>", "<class 'dict'>"],
+    question_text: 'How do you write a single-line comment in JavaScript?',
+    options: ['<!-- Comment -->', '// Comment', '/* Comment */', '# Comment'],
     correct_option_index: 1
   },
   {
-    question_text: 'How can you generate random numbers in Python?',
-    options: ['Using the random library', 'Using the random module', 'Using the random_numbers package', 'Using numpy'],
-    correct_option_index: 1
-  },
-  {
-    question_text: 'What does the len() function do in Python?',
-    options: ['Returns the number of arguments in a function', 'Converts a value to a string', 'Returns the length of a collection', 'Checks for null values'],
-    correct_option_index: 2
-  },
-  {
-    question_text: 'How do you start a comment in Python?',
-    options: ['#', '//', '<!--', '%'],
-    correct_option_index: 0
-  },
-  {
-    question_text: 'Which method is used to add an element to a list?',
-    options: ['add()', 'append()', 'extend()', 'insert()'],
-    correct_option_index: 1
-  },
-  {
-    question_text: 'What is the output of print(5 // 2)?',
-    options: ['2.5', '3.0', '2', 'None'],
-    correct_option_index: 2
-  },
-  {
-    question_text: 'Which keyword is used to handle exceptions in Python?',
-    options: ['try...except', 'except', 'catch', 'error'],
-    correct_option_index: 1
-  },
-  {
-    question_text: 'What is the default mode of the open() function?',
-    options: ['write', 'binary', 'read', 'append'],
-    correct_option_index: 2
-  },
-  {
-    question_text: 'Which operator is used for exponentiation in Python?',
-    options: ['^', '&', '**', '%'],
-    correct_option_index: 2
-  },
-  {
-    question_text: 'What does the is keyword do?',
-    options: ['Compares memory locations of two objects', 'Checks if two objects are identical', 'Both A and B', 'None of the above'],
-    correct_option_index: 2
-  },
-  {
-    question_text: 'What is the output of print(bool([]))?',
-    options: ['False', 'True', 'None', 'Error'],
-    correct_option_index: 0
-  },
-  {
-    question_text: 'What does str.strip() do in Python?',
-    options: ['Removes all whitespace from a string', 'Removes leading and trailing whitespace from a string', 'Converts a string to lowercase', 'Splits a string'],
-    correct_option_index: 1
-  },
-  {
-    question_text: 'What is the output of list(range(3))?',
-    options: ['[1, 2, 3]', '[0, 1, 2]', '[0, 1, 2, 3]', 'None'],
-    correct_option_index: 1
-  },
-  {
-    question_text: "What is the output of print('Python'[0:2])?",
-    options: ['Py', 'yt', "'Py'", "'Pyt'"],
-    correct_option_index: 2
-  },
-  {
-    question_text: 'What is the correct way to declare a dictionary in Python?',
-    options: ["{'key': 'value'}", "{'key', 'value'}", "['key': 'value']", "['key', 'value']"],
-    correct_option_index: 0
-  },
-  {
-    question_text: 'What does the pop() method do?',
-    options: ['Removes the first element from a list', 'Removes the last element from a list', 'Deletes all elements', 'Adds an element to a list'],
-    correct_option_index: 1
-  },
-  {
-    question_text: 'What is the use of __init__ in Python?',
-    options: ['Initialize a class method', "Initialize an object's attributes", 'Initialize static variables', 'Initialize constants'],
-    correct_option_index: 1
-  },
-  {
-    question_text: 'What does break do in a loop?',
-    options: ['Continues the next iteration', 'Restarts the loop', 'Exits the loop', 'Skips the next step'],
-    correct_option_index: 2
-  },
-  {
-    question_text: 'What is a tuple?',
-    options: ['A mutable collection', 'An immutable collection', 'A dictionary', 'A class'],
-    correct_option_index: 1
-  },
-  {
-    question_text: 'How do you write a lambda function?',
-    options: ['def lambda():', 'lambda ->', 'lambda x: x', 'None of the above'],
-    correct_option_index: 2
-  },
-  {
-    question_text: 'How do you convert an integer to a string?',
-    options: ['str(int)', 'String(int)', 'str()', 'cast(int)'],
-    correct_option_index: 2
-  },
-  {
-    question_text: 'What is the output of print(type(5.0))?',
-    options: ["<class 'int'>", "<class 'double'>", "<class 'float'>", "<class 'long'>"],
-    correct_option_index: 2
-  },
-  {
-    question_text: 'Which function is used to find the largest item in an iterable?',
-    options: ['min()', 'sum()', 'max()', 'top()'],
-    correct_option_index: 2
-  },
-  {
-    question_text: 'Which of the following is a valid variable name in Python?',
-    options: ['2variable', 'variable_2', 'variable-2', 'variable 2'],
-    correct_option_index: 1
-  },
-  {
-    question_text: "What is the output of bool('False')?",
-    options: ['False', 'True', 'None', 'Error'],
-    correct_option_index: 1
-  },
-  {
-    question_text: 'Which method is used to return the number of items in a list?',
-    options: ['count()', 'len()', 'size()', 'total()'],
-    correct_option_index: 1
-  },
-  {
-    question_text: 'Which of the following is not a core data type in Python?',
-    options: ['List', 'Dictionary', 'Tuple', 'Class'],
+    question_text: 'Which of the following is not a JavaScript data type?',
+    options: ['String', 'Number', 'Boolean', 'Float'],
     correct_option_index: 3
   },
   {
-    question_text: 'What is the result of 3 == 3.0?',
-    options: ['True', 'False', 'Error', 'None'],
-    correct_option_index: 0
-  },
-  {
-    question_text: 'What does a[-1] do in a list?',
-    options: ['Accesses the first element', 'Raises an error', 'Accesses the last element', 'None of the above'],
-    correct_option_index: 2
-  },
-  {
-    question_text: 'How do you install a Python package?',
-    options: ['install package_name', 'pip install package_name', 'python install package_name', 'setup install package_name'],
+    question_text: 'What is the result of 2 + "3"?',
+    options: ['5', '"23"', '"5"', 'NaN'],
     correct_option_index: 1
   },
   {
-    question_text: 'What is the output of print(type((1,)))?',
-    options: ["<class 'list'>", "<class 'tuple'>", "<class 'set'>", "<class 'dict'>"],
+    question_text: 'Which method is used to parse a string to an integer?',
+    options: ['parseFloat()', 'parseInt()', 'Number()', 'toInteger()'],
     correct_option_index: 1
   },
   {
-    question_text: 'Which keyword is used to create a class in Python?',
-    options: ['define', 'struct', 'class', 'object'],
-    correct_option_index: 2
-  },
-  {
-    question_text: 'How do you access items in a dictionary?',
-    options: ['dict.index()', 'dict.key()', "dict['key']", 'dict.value()'],
-    correct_option_index: 2
-  },
-  {
-    question_text: 'What is the output of print(5 % 2)?',
-    options: ['2', '5', '1', 'None'],
-    correct_option_index: 2
-  },
-  {
-    question_text: 'What is the default value of variables in Python?',
-    options: ['Variables do not have a default value', '0', 'None', 'False'],
-    correct_option_index: 0
-  },
-  {
-    question_text: 'Which of the following creates an empty set?',
-    options: ['{}', 'set()', '[]', '()'],
-    correct_option_index: 1
-  },
-  {
-    question_text: 'What is the correct file extension for Python files?',
-    options: ['.pyth', '.pt', '.py', '.python'],
-    correct_option_index: 2
-  },
-  {
-    question_text: 'What does str.upper() do?',
-    options: ['Converts a string to lowercase', 'Removes whitespaces', 'Converts a string to uppercase', 'Splits a string'],
-    correct_option_index: 2
-  },
-  {
-    question_text: 'How do you get the last item in a list?',
-    options: ['list[len(list)]', 'list.last()', 'list[-1]', 'list[None]'],
-    correct_option_index: 2
-  },
-  {
-    question_text: 'How do you check if a key exists in a dictionary?',
-    options: ['if key in dict.keys()', 'if key in dict', 'if dict.contains(key)', 'if key in dict.values()'],
-    correct_option_index: 1
-  },
-  {
-    question_text: 'Which statement is used to terminate a loop?',
-    options: ['stop', 'terminate', 'break', 'exit'],
-    correct_option_index: 2
-  },
-  {
-    question_text: 'How do you create a set in Python?',
-    options: ['[]', '()', '{}', 'set()'],
+    question_text: 'Which company developed JavaScript?',
+    options: ['Microsoft', 'Apple', 'Oracle', 'Netscape'],
     correct_option_index: 3
   },
   {
-    question_text: "What is the result of len({1: 'a', 2: 'b', 3: 'c'})?",
-    options: ['4', '6', '3', 'Error'],
-    correct_option_index: 2
-  },
-  {
-    question_text: 'What does continue do in a loop?',
-    options: ['Stops the loop', 'Skips the current iteration', 'Exits the program', 'Restarts the loop'],
+    question_text: 'How do you create a function in JavaScript?',
+    options: ['def myFunction() {}', 'function myFunction() {}', 'func myFunction() {}', 'create myFunction() {}'],
     correct_option_index: 1
   },
   {
-    question_text: 'Which of the following is a Python boolean value?',
-    options: ['True', 'truth', 'yes', 'None'],
+    question_text: 'What is the output of console.log(typeof NaN)?',
+    options: ['"NaN"', '"number"', '"undefined"', '"object"'],
+    correct_option_index: 1
+  },
+  {
+    question_text: 'Which symbol is used for strict equality comparison?',
+    options: ['=', '==', '===', '!=='],
+    correct_option_index: 2
+  },
+  {
+    question_text: 'How do you add an element to the end of an array in JavaScript?',
+    options: ['array.insert()', 'array.append()', 'array.push()', 'array.add()'],
+    correct_option_index: 2
+  },
+  {
+    question_text: 'Which keyword is used to check if a property exists in an object?',
+    options: ['hasOwnProperty', 'in', 'contains', 'exists'],
+    correct_option_index: 1
+  },
+  {
+    question_text: 'What will Boolean("false") return?',
+    options: ['true', 'false', 'NaN', 'Error'],
     correct_option_index: 0
   },
   {
-    question_text: "What is the result of print(2 * '3')?",
-    options: ['6', '33', "'33'", 'Error'],
+    question_text: 'What is the correct way to write a JavaScript array?',
+    options: ['{1, 2, 3}', '[1, 2, 3]', '(1, 2, 3)', '<1, 2, 3>'],
+    correct_option_index: 1
+  },
+  {
+    question_text: 'How can you create a constant in JavaScript?',
+    options: ['let x = 5;', 'var x = 5;', 'const x = 5;', 'const x == 5;'],
+    correct_option_index: 2
+  },
+  {
+    question_text: 'Which JavaScript method is used to access an HTML element by its ID?',
+    options: ['getElementByClassName()', 'getElementByTagName()', 'getElementById()', 'querySelector()'],
+    correct_option_index: 2
+  },
+  {
+    question_text: 'What does the isNaN() function do?',
+    options: ['Checks if a value is a string', 'Checks if a value is not a number', 'Checks if a value is null', 'Checks if a value is undefined'],
+    correct_option_index: 1
+  },
+  {
+    question_text: 'What is the default value of undefined in JavaScript?',
+    options: ['0', 'undefined', 'null', 'false'],
+    correct_option_index: 1
+  },
+  {
+    question_text: 'Which operator is used for exponentiation in JavaScript?',
+    options: ['^', 'exp()', '**', '**'],
+    correct_option_index: 3
+  },
+  {
+    question_text: 'What is the output of console.log(0.1 + 0.2 === 0.3)?',
+    options: ['true', 'false', 'NaN', 'Error'],
+    correct_option_index: 1
+  },
+  {
+    question_text: 'What does JSON.stringify() do?',
+    options: ['Parses a JSON string', 'Converts an object to a JSON string', 'Converts a JSON string to an object', 'Converts a string to a number'],
+    correct_option_index: 1
+  },
+  {
+    question_text: 'What will console.log("5" - 3) output?',
+    options: ['"53"', '2', 'NaN', 'Error'],
+    correct_option_index: 1
+  },
+  {
+    question_text: 'Which of the following is a falsy value in JavaScript?',
+    options: ['1', '"false"', '0', '{}'],
+    correct_option_index: 2
+  },
+  {
+    question_text: 'How can you call a function named myFunction?',
+    options: ['call myFunction();', 'call function myFunction();', 'myFunction();', 'execute myFunction();'],
+    correct_option_index: 2
+  },
+  {
+    question_text: 'Which keyword is used to define a class in JavaScript?',
+    options: ['struct', 'class', 'object', 'define'],
+    correct_option_index: 1
+  },
+  {
+    question_text: 'Which of the following is not a valid JavaScript loop?',
+    options: ['for', 'foreach', 'while', 'do...while'],
+    correct_option_index: 1
+  },
+  {
+    question_text: 'What is the purpose of Array.prototype.slice()?',
+    options: ['Modify the original array', 'Create a shallow copy of part of an array', 'Remove elements from an array', 'Sort an array'],
+    correct_option_index: 1
+  },
+  {
+    question_text: 'What will console.log(1 == "1") output?',
+    options: ['true', 'false', 'true', 'NaN'],
+    correct_option_index: 2
+  },
+  {
+    question_text: 'What does the this keyword refer to in JavaScript?',
+    options: ['The global object in strict mode', 'The object from which the function was called', 'The object that owns the current code', 'Always the global object'],
+    correct_option_index: 2
+  },
+  {
+    question_text: 'How can you convert a string to a number in JavaScript?',
+    options: ['String()', 'Number()', 'toString()', 'parseChar()'],
+    correct_option_index: 1
+  },
+  {
+    question_text: 'What is the output of console.log(typeof [])?',
+    options: ['"array"', '"object"', '"undefined"', '"null"'],
+    correct_option_index: 1
+  },
+  {
+    question_text: 'What will the const keyword do in JavaScript?',
+    options: ['Create a variable that can be re-assigned', 'Create a block-scoped constant', 'Create a global variable', 'Declare a function'],
+    correct_option_index: 1
+  },
+  {
+    question_text: 'What is the purpose of the finally block in a try...catch statement?',
+    options: ['Executes if there is an error', 'Skips execution if there is no error', 'Executes regardless of whether an error occurs or not', 'Stops code execution'],
+    correct_option_index: 2
+  },
+  {
+    question_text: 'How do you check if an array includes a specific value?',
+    options: ['array.search(value)', 'array.includes(value)', 'array.find(value)', 'array.has(value)'],
+    correct_option_index: 1
+  },
+  {
+    question_text: 'Which method can you use to join all elements of an array into a single string?',
+    options: ['concat()', 'join()', 'merge()', 'split()'],
+    correct_option_index: 1
+  },
+  {
+    question_text: 'What is the output of console.log(1 + "2" + 3)?',
+    options: ['6', '123', '"123"', 'Error'],
+    correct_option_index: 2
+  },
+  {
+    question_text: 'How do you remove the last element of an array?',
+    options: ['array.popLast()', 'array.pop()', 'array.remove()', 'array.delete()'],
+    correct_option_index: 1
+  },
+  {
+    question_text: 'What does setTimeout() do in JavaScript?',
+    options: ['Executes code immediately', 'Delays code execution for a specified time', 'Stops code execution', 'Creates an infinite loop'],
+    correct_option_index: 1
+  },
+  {
+    question_text: 'What will console.log(undefined == null) return?',
+    options: ['false', 'true', 'NaN', 'Error'],
+    correct_option_index: 1
+  },
+  {
+    question_text: 'Which of the following is true about let and var?',
+    options: ['Both are function-scoped', 'let is block-scoped, var is function-scoped', 'var is block-scoped, let is global', 'Both are block-scoped'],
+    correct_option_index: 1
+  },
+  {
+    question_text: 'What does Promise.all() do?',
+    options: ['Resolves the first promise in an array', 'Resolves all promises and returns their results as an array', 'Rejects the first promise in an array', 'Returns a promise that never resolves'],
+    correct_option_index: 1
+  },
+  {
+    question_text: 'What is the purpose of the spread operator (...)?',
+    options: ['Combine two arrays', 'Merge two objects', 'Expand elements of an array or object', 'Clone an array'],
+    correct_option_index: 2
+  },
+  {
+    question_text: 'How do you stop an interval set by setInterval()?',
+    options: ['stopInterval()', 'clearInterval()', 'resetInterval()', 'deleteInterval()'],
+    correct_option_index: 1
+  },
+  {
+    question_text: 'What will console.log([] == ![]) return?',
+    options: ['false', 'true', 'NaN', 'Error'],
+    correct_option_index: 1
+  },
+  {
+    question_text: 'How do you add a property to an object dynamically?',
+    options: ['object.addProperty(key, value)', 'object.append(key, value)', 'object[key] = value', 'object.set(key, value)'],
+    correct_option_index: 2
+  },
+  {
+    question_text: 'Which method is used to remove whitespace from both ends of a string?',
+    options: ['strip()', 'remove()', 'trim()', 'clean()'],
+    correct_option_index: 2
+  },
+  {
+    question_text: 'What will console.log([] + {}) return?',
+    options: ['Error', '"[object Object]"', 'NaN', '"undefined"'],
+    correct_option_index: 1
+  },
+  {
+    question_text: 'What will console.log(typeof function() {}) return?',
+    options: ['"method"', '"class"', '"function"', '"object"'],
+    correct_option_index: 2
+  },
+  {
+    question_text: 'What is the difference between map() and forEach()?',
+    options: ['Both return arrays', 'map() returns a new array, forEach() does not', 'forEach() returns a new array, map() does not', 'Both modify the original array'],
+    correct_option_index: 1
+  },
+  {
+    question_text: 'What will console.log(!!"") output?',
+    options: ['"true"', '"false"', 'false', 'NaN'],
     correct_option_index: 2
   }
 ]

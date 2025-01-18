@@ -12,6 +12,8 @@ class TestsController < ApplicationController
       render :start
     else
       @current_question = current_question
+      # calculate the current question index based on the count of total questions answered
+      @current_question_index = @assignment.session_data['questions'].count { |q| q['answered'] == true } + 1
       render :test
     end
   end

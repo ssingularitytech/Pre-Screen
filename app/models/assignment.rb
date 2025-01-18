@@ -66,7 +66,15 @@ class Assignment < ApplicationRecord
   private
 
   def initialize_session_data
-    questions = test.random_questions(test.total_questions)
+    # The limit should be calculated such way:
+    # 1 question takes 40 seconds to complete
+    # So calculate the limit based on the duration of the test
+    # and the number of questions in the test
+    duration_in_seconds = test.duration * 60
+    questions_count = test.total_questions
+    questions_limit = (duration_in_seconds / 40).to_i
+    questions_limit = [questions_limit, questions_count].min
+    questions = test.random_questions(questions_limit)
     self.session_data = {
       questions: questions.map { |q| { 
         id: q.id, 

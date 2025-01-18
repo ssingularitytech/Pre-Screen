@@ -50,6 +50,7 @@ end
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
+  gem "erb-formatter"
 
   # Highlight the fine-grained location where an error occurred [https://github.com/ruby/error_highlight]
   gem "error_highlight", ">= 0.4.0", platforms: [ :ruby ]
@@ -78,3 +79,5 @@ gem "sidekiq"
 
 # Pagination
 gem 'kaminari'
+
+gem "devise-tailwindcssed", "~> 0.1.6"

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="h-full bg-gray-50">
   <head>
-    <title>Pre Screen AI - Admin</title>
+    <title>Pre Screen - Admin</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -20,7 +20,7 @@
               <!-- Logo -->
               <div class="flex items-center flex-shrink-0">
                 <%= link_to admin_root_path, class: "text-2xl font-bold text-blue-600" do %>
-                  Pre Screen AI
+                  Pre Screen
                 <% end %>
               </div>
               <!-- Navigation Links -->
@@ -80,7 +80,7 @@
     <!-- JavaScript for dropdown menu -->
     <script>
       document.getElementById('user-menu-button').addEventListener('click', function() {
-        const dropdown = this.nextElementSibling;
+        const dropdown = document.querySelector('[role="menu"]');
         dropdown.classList.toggle('hidden');
       });
 
