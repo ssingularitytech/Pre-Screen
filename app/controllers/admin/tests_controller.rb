@@ -1,6 +1,6 @@
 module Admin
   class TestsController < BaseController
-    before_action :set_test, only: [:show, :edit, :update, :destroy, :results, :analytics, :send_bulk_invitations]
+    before_action :set_test, only: [:show, :edit, :update, :destroy, :results, :analytics, :send_bulk_invitations, :import_invitees]
 
     def index
       @tests = current_admin_user.tests.includes(:topics, :invitees)
@@ -75,6 +75,35 @@ module Admin
                                .select("extract(epoch from (completed_at - started_at))/60 as duration")
                                .group("round(extract(epoch from (completed_at - started_at))/60/10) * 10")
                                .count
+    end
+
+    def import_invitees
+      require 'csv'
+
+      if params[:file].nil?
+        redirect_to admin_test_path(@test), alert: 'Please select a file to import.'
+        return
+      end
+
+      begin
+        invitees_data = CSV.parse(params[:file].read, headers: true)
+        
+        ActiveRecord::Base.transaction do
+          invitees_data.each do |row|
+            @test.invitees.create!(
+              name: row['name'],
+              email: row['email'],
+              expires_at: @test.end_at
+            )
+          end
+        end
+
+        redirect_to admin_test_path(@test), notice: "Successfully imported #{invitees_data.count} invitees."
+      rescue CSV::MalformedCSVError
+        redirect_to admin_test_path(@test), alert: 'Invalid CSV file format.'
+      rescue ActiveRecord::RecordInvalid => e
+        redirect_to admin_test_path(@test), alert: "Error importing invitees: #{e.message}"
+      end
     end
 
     private

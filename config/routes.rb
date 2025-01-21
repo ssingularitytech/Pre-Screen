@@ -13,6 +13,7 @@ Rails.application.routes.draw do
         get :results
         get :analytics
         post :send_bulk_invitations
+        post :import_invitees
       end
       resources :invitees do
         member do
