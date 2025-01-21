@@ -15,7 +15,9 @@
         <div class="sm:col-span-4">
           <%= f.label :name, class: "block text-sm font-medium text-gray-700" %>
           <div class="mt-1">
-            <%= f.text_field :name, class: "shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md" %>
+            <%= f.text_field :name,
+                         class:
+                           "shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md" %>
           </div>
           <% if test.errors[:name].any? %>
             <p class="mt-2 text-sm text-red-600">
@@ -23,12 +25,14 @@
             </p>
           <% end %>
         </div>
-
         <!-- Description -->
         <div class="sm:col-span-6">
           <%= f.label :description, class: "block text-sm font-medium text-gray-700" %>
           <div class="mt-1">
-            <%= f.text_area :description, rows: 3, class: "shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md" %>
+            <%= f.text_area :description,
+                        rows: 3,
+                        class:
+                          "shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md" %>
           </div>
           <% if test.errors[:description].any? %>
             <p class="mt-2 text-sm text-red-600">
@@ -36,12 +40,16 @@
             </p>
           <% end %>
         </div>
-
         <!-- Duration -->
         <div class="sm:col-span-2">
-          <%= f.label :duration, "Duration (minutes)", class: "block text-sm font-medium text-gray-700" %>
+          <%= f.label :duration,
+                  "Duration (minutes)",
+                  class: "block text-sm font-medium text-gray-700" %>
           <div class="mt-1">
-            <%= f.number_field :duration, min: 1, class: "shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md" %>
+            <%= f.number_field :duration,
+                           min: 1,
+                           class:
+                             "shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md" %>
           </div>
           <% if test.errors[:duration].any? %>
             <p class="mt-2 text-sm text-red-600">
@@ -49,12 +57,17 @@
             </p>
           <% end %>
         </div>
-
         <!-- Passing Score -->
         <div class="sm:col-span-2">
-          <%= f.label :passing_score, "Passing Score (%)", class: "block text-sm font-medium text-gray-700" %>
+          <%= f.label :passing_score,
+                  "Passing Score (%)",
+                  class: "block text-sm font-medium text-gray-700" %>
           <div class="mt-1">
-            <%= f.number_field :passing_score, min: 0, max: 100, class: "shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md" %>
+            <%= f.number_field :passing_score,
+                           min: 0,
+                           max: 100,
+                           class:
+                             "shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md" %>
           </div>
           <% if test.errors[:passing_score].any? %>
             <p class="mt-2 text-sm text-red-600">
@@ -62,7 +75,34 @@
             </p>
           <% end %>
         </div>
-
+        <!-- Start Time -->
+        <div class="sm:col-span-6">
+          <%= f.label :start_at, class: "block text-sm font-medium text-gray-700" %>
+          <div class="mt-1">
+            <%= f.datetime_field :start_at,
+                             class:
+                               "shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md" %>
+          </div>
+          <% if test.errors[:start_at].any? %>
+            <p class="mt-2 text-sm text-red-600">
+              <%= test.errors[:start_at].join(", ") %>
+            </p>
+          <% end %>
+        </div>
+        <!-- End Time -->
+        <div class="sm:col-span-6">
+          <%= f.label :end_at, class: "block text-sm font-medium text-gray-700" %>
+          <div class="mt-1">
+            <%= f.datetime_field :end_at,
+                             class:
+                               "shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md" %>
+          </div>
+          <% if test.errors[:end_at].any? %>
+            <p class="mt-2 text-sm text-red-600">
+              <%= test.errors[:end_at].join(", ") %>
+            </p>
+          <% end %>
+        </div>
         <!-- Topics -->
         <div class="sm:col-span-6">
           <fieldset>
@@ -71,18 +111,23 @@
               <% @available_topics.each do |topic| %>
                 <div class="relative flex items-start p-4 hover:bg-gray-50">
                   <div class="min-w-0 flex-1 text-sm">
-                    <label for="topic_<%= topic.id %>" class="font-medium text-gray-700 select-none">
+                    <label
+                      for="topic_<%= topic.id %>"
+                      class="font-medium text-gray-700 select-none"
+                    >
                       <%= topic.name %>
                     </label>
                     <p class="text-gray-500"><%= truncate(topic.description, length: 100) %></p>
                     <p class="mt-1 text-sm text-gray-500">
-                      <%= pluralize(topic.active_questions_count, 'active question') %>
+                      <%= pluralize(topic.active_questions_count, "active question") %>
                     </p>
                   </div>
                   <div class="ml-3 flex items-center h-5">
-                    <%= check_box_tag "test[topic_ids][]", topic.id, test.topics.include?(topic),
-                        id: "topic_#{topic.id}",
-                        class: "focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300 rounded" %>
+                    <%= check_box_tag "test[topic_ids][]",
+                    topic.id,
+                    test.topics.include?(topic),
+                    id: "topic_#{topic.id}",
+                    class: "focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300 rounded" %>
                   </div>
                 </div>
               <% end %>
@@ -94,11 +139,12 @@
             <% end %>
           </fieldset>
         </div>
-
         <!-- Status -->
         <div class="sm:col-span-4">
           <div class="flex items-center">
-            <%= f.check_box :active, class: "h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded" %>
+            <%= f.check_box :active,
+                        class:
+                          "h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded" %>
             <%= f.label :active, class: "ml-2 block text-sm text-gray-700" %>
           </div>
           <p class="mt-2 text-sm text-gray-500">
@@ -111,8 +157,12 @@
 
   <div class="pt-5">
     <div class="flex justify-end">
-      <%= link_to "Cancel", admin_tests_path, class: "bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500" %>
-      <%= f.submit class: "ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500" %>
+      <%= link_to "Cancel",
+      admin_tests_path,
+      class:
+        "bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500" %>
+      <%= f.submit class:
+                 "ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500" %>
     </div>
   </div>
-<% end %> 
+<% end %>

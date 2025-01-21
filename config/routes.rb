@@ -12,6 +12,7 @@ Rails.application.routes.draw do
       member do
         get :results
         get :analytics
+        post :send_bulk_invitations
       end
       resources :invitees do
         member do

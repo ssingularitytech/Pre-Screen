@@ -48,8 +48,13 @@ module Admin
     end
 
     def resend_invitation
-      @invitee.resend_invitation_email!
-      redirect_to admin_test_invitees_path(@test), notice: 'Invitation was successfully resent.'
+      # check if the test start_at is about to start in 10 minutes
+      if @test.start_at - 5.minutes < Time.now
+        @invitee.resend_invitation_email!
+        redirect_to admin_test_invitees_path(@test), notice: 'Invitation was successfully resent.'
+      else
+        redirect_to admin_test_invitees_path(@test), alert: 'You can only resend invitation 5 minutes before the test starts.'
+      end
     end
 
     private

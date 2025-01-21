@@ -12,7 +12,10 @@ class Test < ApplicationRecord
   validates :description, presence: true
   validates :duration, presence: true, numericality: { only_integer: true, greater_than: 0 }
   validates :passing_score, presence: true, numericality: { only_integer: true, greater_than: 0, less_than_or_equal_to: 100 }
+  validates :start_at, presence: true
+  validates :end_at, presence: true
   validates :topics, presence: true
+  validate :check_start_and_end_time
 
   # Scopes
   scope :active, -> { where(active: true) }
@@ -40,4 +43,16 @@ class Test < ApplicationRecord
     
     (assignments.where.not(completed_at: nil).count.to_f / total * 100).round(2)
   end
+
+  # Validations
+  def check_start_and_end_time
+    return if start_at.blank? || end_at.blank?
+    errors.add(:start_at, "can't be in the past") if start_at < Time.now
+    errors.add(:end_at, "can't be before start time") if end_at < start_at
+    # check difference between start_at and end_at should be the duration in minutes
+    errors.add(:end_at, 'Duration mismatch (Difference between start and end time should be equal to duration)') if (end_at - start_at).to_i != duration * 60
+    errors.add(:start_at, 'Duration mismatch (Difference between start and end time should be equal to duration)') if (end_at - start_at).to_i != duration * 60
+  end
 end
+
+

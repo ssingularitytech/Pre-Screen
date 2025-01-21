@@ -8,6 +8,8 @@ You have been invited to take a test on our platform.
 Test Details:
 - Test Name: <%= @test.name %>
 - Duration: <%= @test.duration %> minutes
+- Start Time: <%= @test.start_at.strftime("%B %d, %Y %I:%M %p") %>
+- End Time: <%= @test.end_at.strftime("%B %d, %Y %I:%M %p") %>
 
 To start the test, please visit this URL:
 <%= @url %>

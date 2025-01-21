@@ -16,6 +16,8 @@
         <ul>
           <li>Test Name: <%= @test.name %></li>
           <li>Duration: <%= @test.duration %> minutes</li>
+          <li>Start Time: <%= @test.start_at.strftime("%B %d, %Y %I:%M %p") %></li>
+          <li>End Time: <%= @test.end_at.strftime("%B %d, %Y %I:%M %p") %></li>
         </ul>
       </div>
       

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_01_18_063144) do
+ActiveRecord::Schema[7.2].define(version: 2025_01_21_100016) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -87,6 +87,8 @@ ActiveRecord::Schema[7.2].define(version: 2025_01_18_063144) do
     t.integer "duration", default: 30, null: false
     t.integer "passing_score", default: 70, null: false
     t.boolean "active", default: true, null: false
+    t.datetime "start_at", null: false
+    t.datetime "end_at", null: false
     t.index ["admin_user_id"], name: "index_tests_on_admin_user_id"
   end
 

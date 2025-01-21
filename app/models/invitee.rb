@@ -64,6 +64,7 @@ class Invitee < ApplicationRecord
   end
 
   def send_invitation_email
+    puts "Sending invitation email to #{email}"
     InviteeMailer.invitation_email(self).deliver_later
   end
 end

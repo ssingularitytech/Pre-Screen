@@ -1,6 +1,6 @@
 module Admin
   class TestsController < BaseController
-    before_action :set_test, only: [:show, :edit, :update, :destroy, :results, :analytics]
+    before_action :set_test, only: [:show, :edit, :update, :destroy, :results, :analytics, :send_bulk_invitations]
 
     def index
       @tests = current_admin_user.tests.includes(:topics, :invitees)
@@ -56,6 +56,14 @@ module Admin
                          .page(params[:page])
     end
 
+    def send_bulk_invitations
+      return redirect_to admin_test_path(@test), alert: 'You can only send invitations 5 minutes before the test starts.' if @test.start_at - 5.minutes > Time.now
+      @test.invitees.each do |invitee|
+        invitee.resend_invitation_email!
+      end
+      redirect_to admin_test_path(@test), notice: 'Invitations were successfully resent.'
+    end
+
     def analytics
       @completion_rate = @test.completion_rate
       @average_score = @test.average_score
@@ -82,6 +90,8 @@ module Admin
         :duration,
         :passing_score,
         :active,
+        :start_at,
+        :end_at,
         topic_ids: []
       )
     end
