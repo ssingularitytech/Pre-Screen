@@ -2,7 +2,8 @@ class InviteeMailer < ApplicationMailer
   def invitation_email(invitee)
     @invitee = invitee
     @test = invitee.tests.last
-    @url = test_url(@test, token: @invitee.token, host: 'localhost:3000')
+    HOST = ENV['HOST']
+    @url = test_url(@test, token: @invitee.token, host: HOST)
     
     mail(
       to: @invitee.email,

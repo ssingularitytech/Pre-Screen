@@ -1,23 +1,41 @@
+  FROM ruby:3.2.0
+  ENV TZ="Asia/Kolkata"
+  ENV RAILS_ENV=production
+  ENV NODE_ENV=production
 
-FROM ruby:3.1.0
-ENV TZ="Asia/Kolkata"
+  # Install system dependencies
+  RUN apt-get update -qq && \
+      apt-get install -qq --no-install-recommends \
+      build-essential \
+      git \
+      libpq-dev \
+      postgresql-client \
+      curl \
+      && rm -rf /var/lib/apt/lists/*
 
-# Install node 18-LTS and yarn
-RUN curl -sL https://deb.nodesource.com/setup_19.x | bash -
-RUN apt-get update -qq && apt-get install -qq --no-install-recommends \
-  nodejs \
-  libxrender1 \
-  && apt-get clean \
-  && rm -rf /var/lib/apt/lists/*
-RUN npm install -g yarn@2
+  # Install Node.js and Yarn
+  RUN curl -fsSL https://deb.nodesource.com/setup_19.x | bash - && \
+      apt-get update && apt-get install -y nodejs && \
+      npm install -g yarn@2 && \
+      npm install -g esbuild
 
-WORKDIR /app
-COPY Gemfile /app/Gemfile
-COPY Gemfile.lock /app/Gemfile.lock
-RUN bundle install
-COPY . /app
+  WORKDIR /app
 
-EXPOSE 8180
+  # Install Ruby dependencies
+  COPY Gemfile Gemfile.lock ./
+  RUN bundle config set --local without 'development test' && \
+      bundle install --jobs 4 --retry 3
 
-RUN SECRET_KEY_BASE=1 RAILS_ENV=production bundle exec rake assets:precompile
-CMD ["bundle", "exec", "puma", "-C", "config/puma.rb"]
+  # Install JS dependencies
+  COPY package.json yarn.lock ./
+  RUN yarn install
+
+  # Copy application code
+  COPY . .
+
+  # Precompile assets
+  RUN SECRET_KEY_BASE=1 bundle exec rake assets:precompile
+
+  EXPOSE 8181
+
+  CMD ["bundle", "exec", "puma", "-C", "config/puma.rb"]

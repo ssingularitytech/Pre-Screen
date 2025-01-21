@@ -16,18 +16,18 @@ services:
       dockerfile: docker/app.Dockerfile
     command: bash -c "bundle exec puma -C config/puma.rb"
     environment:
-      PORT: 9169
+      PORT: 8181
       RAILS_ENV: production
       REDIS_URL: "redis://redis:6379/12"
       RAILS_SERVE_STATIC_FILES: "true"
       POSTGRES_HOST: postgres
       POSTGRES_PORT: 5432
     env_file:
-      - .env.production
+      - .env
     volumes:
       - .:/app
     ports:
-      - "8180:8180"
+      - "8181:8181"
     depends_on:
       - postgres
     networks:
