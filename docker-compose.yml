@@ -32,6 +32,30 @@ services:
       - postgres
     networks:
       - pre_screen_network
+  redis:
+    image: redis
+    volumes:
+      - ./tmp/redis:/var/lib/redis/data
+    networks:
+      - pre_screen_network
+  sidekiq:
+    build:
+      context: .
+      dockerfile: docker/sidekiq.Dockerfile
+    command: "bundle exec sidekiq"
+    volumes:
+      - .:/app
+    environment:
+      RAILS_ENV: "production"
+      REDIS_URL: "redis://redis:6379/12"
+    env_file:
+      - .env
+    depends_on:
+      - redis
+      - postgres
+    networks:
+      - pre_screen_network
 
 networks:
   pre_screen_network:
+

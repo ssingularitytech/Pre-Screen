@@ -6,6 +6,7 @@ class Test < ApplicationRecord
   has_many :assignments, dependent: :destroy
   has_many :invitees, through: :assignments
   has_many :questions, through: :topics
+  has_many :recent_invitation_sent, dependent: :destroy
 
   # Validations
   validates :name, presence: true

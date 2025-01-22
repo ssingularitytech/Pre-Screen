@@ -79,6 +79,7 @@ gem "view_component"
 
 # Background Jobs
 gem "sidekiq"
+gem 'sidekiq-scheduler'
 
 # Pagination
 gem 'kaminari'

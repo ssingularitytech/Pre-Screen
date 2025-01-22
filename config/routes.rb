@@ -1,6 +1,13 @@
+require 'sidekiq/web'
+require 'sidekiq-scheduler/web'
+
 Rails.application.routes.draw do
   # Admin authentication
   devise_for :admin_users
+
+  authenticated :admin_user, lambda { |u| u.admin? } do
+    mount Sidekiq::Web => '/sidekiq'
+  end
 
   # Admin namespace
   namespace :admin do
@@ -31,12 +38,6 @@ Rails.application.routes.draw do
       post :start
       post :answer
     end
-  end
-
-  # Sidekiq web interface
-  require 'sidekiq/web'
-  authenticate :admin_user do
-    mount Sidekiq::Web => '/sidekiq'
   end
 
   root to: redirect('/admin')

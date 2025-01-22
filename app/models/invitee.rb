@@ -2,6 +2,7 @@ class Invitee < ApplicationRecord
   # Associations
   has_many :assignments, dependent: :destroy
   has_many :tests, through: :assignments
+  has_many :recent_invitation_sent, dependent: :destroy
 
   # Validations
   validates :email, presence: true, uniqueness: true
@@ -16,7 +17,8 @@ class Invitee < ApplicationRecord
 
   # Callbacks
   before_validation :generate_token, on: :create
-  after_create :send_invitation_email
+  # TODO: commenting this as invitation email will be sent before the test is about to start
+  # after_create :send_invitation_email
 
   def status
     latest_assignment&.assignment_status || 'pending'
@@ -66,5 +68,8 @@ class Invitee < ApplicationRecord
   def send_invitation_email
     puts "Sending invitation email to #{email}"
     InviteeMailer.invitation_email(self).deliver_later
+    latest_test = tests.sort_by(&:created_at).last
+    latest_assignment = assignments.sort_by(&:created_at).last
+    RecentInvitationSent.create!(invitee: self, test: latest_test, assignment: latest_assignment, sent_at: Time.now)
   end
 end

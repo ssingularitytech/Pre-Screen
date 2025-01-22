@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_01_21_100016) do
+ActiveRecord::Schema[7.2].define(version: 2025_01_22_124803) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -24,6 +24,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_01_21_100016) do
     t.datetime "updated_at", null: false
     t.string "first_name"
     t.string "last_name"
+    t.integer "role", default: 0
     t.index ["email"], name: "index_admin_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
   end
@@ -69,6 +70,18 @@ ActiveRecord::Schema[7.2].define(version: 2025_01_21_100016) do
     t.index ["topic_id"], name: "index_questions_on_topic_id"
   end
 
+  create_table "recent_invitation_sents", force: :cascade do |t|
+    t.bigint "invitee_id", null: false
+    t.datetime "sent_at", null: false
+    t.bigint "test_id", null: false
+    t.bigint "assignment_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["assignment_id"], name: "index_recent_invitation_sents_on_assignment_id"
+    t.index ["invitee_id"], name: "index_recent_invitation_sents_on_invitee_id"
+    t.index ["test_id"], name: "index_recent_invitation_sents_on_test_id"
+  end
+
   create_table "test_topics", force: :cascade do |t|
     t.bigint "test_id", null: false
     t.bigint "topic_id", null: false
@@ -105,6 +118,9 @@ ActiveRecord::Schema[7.2].define(version: 2025_01_21_100016) do
   add_foreign_key "assignments", "invitees"
   add_foreign_key "assignments", "tests"
   add_foreign_key "questions", "topics"
+  add_foreign_key "recent_invitation_sents", "assignments"
+  add_foreign_key "recent_invitation_sents", "invitees"
+  add_foreign_key "recent_invitation_sents", "tests"
   add_foreign_key "test_topics", "tests"
   add_foreign_key "test_topics", "topics"
   add_foreign_key "tests", "admin_users"

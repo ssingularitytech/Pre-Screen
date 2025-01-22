@@ -1,7 +1,7 @@
 class InviteeMailer < ApplicationMailer
   def invitation_email(invitee)
     @invitee = invitee
-    @test = invitee.tests.last
+    @test = invitee.tests.sort_by(&:created_at).last
     host = ENV['HOST']
     @url = test_url(@test, token: @invitee.token, host: host)
     

@@ -7,4 +7,6 @@ class AdminUser < ApplicationRecord
   has_many :topics, dependent: :destroy
   has_many :questions, through: :topics
   has_many :tests, dependent: :destroy
+
+  enum :role, { user: 0, admin: 1 }
 end

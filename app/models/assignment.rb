@@ -2,7 +2,7 @@ class Assignment < ApplicationRecord
   # Associations
   belongs_to :test
   belongs_to :invitee
-
+  has_many :recent_invitation_sent, dependent: :destroy
   # Validations
   validates :test, presence: true
   validates :invitee, presence: true
