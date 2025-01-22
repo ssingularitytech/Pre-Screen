@@ -16,7 +16,7 @@ RUN apt-get update -qq && \
 # Install Node.js and Yarn
 RUN curl -fsSL https://deb.nodesource.com/setup_19.x | bash - && \
     apt-get update && apt-get install -y nodejs && \
-    npm install -g yarn@2 && \
+    npm install -g yarn@1.22.22 && \
     npm install -g esbuild
 
 WORKDIR /app
