@@ -1,12 +1,21 @@
 <div>
   <!-- Page header -->
-  <div class="pb-5 border-b border-gray-200 sm:flex sm:items-center sm:justify-between">
+  <div
+    class="
+      pb-5 border-b border-gray-200 sm:flex sm:items-center sm:justify-between
+    "
+  >
     <div>
       <div class="flex items-center">
         <%= link_to admin_test_path(@test), class: "text-sm text-blue-600 hover:text-blue-900" do %>
           <span class="inline-flex items-center">
             <svg class="w-5 h-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M10 19l-7-7m0 0l7-7m-7 7h18"
+              />
             </svg>
             Back to Test
           </span>
@@ -18,7 +27,6 @@
       </p>
     </div>
   </div>
-
   <!-- Add Invitee Form -->
   <div class="mt-8">
     <div class="bg-white shadow sm:rounded-lg">
@@ -30,7 +38,8 @@
               <div class="flex">
                 <div class="ml-3">
                   <h3 class="text-sm font-medium text-red-800">
-                    <%= pluralize(@invitee.errors.count, "error") %> prohibited this invitee from being saved:
+                    <%= pluralize(@invitee.errors.count, "error") %>
+                    prohibited this invitee from being saved:
                   </h3>
                   <div class="mt-2 text-sm text-red-700">
                     <ul class="list-disc pl-5 space-y-1">
@@ -48,55 +57,102 @@
             <div class="sm:col-span-3">
               <%= f.label :name, class: "block text-sm font-medium text-gray-700" %>
               <div class="mt-1">
-                <%= f.text_field :name, class: "shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md" %>
+                <%= f.text_field :name,
+                             class:
+                               "shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md" %>
               </div>
             </div>
 
             <div class="sm:col-span-3">
               <%= f.label :email, class: "block text-sm font-medium text-gray-700" %>
               <div class="mt-1">
-                <%= f.email_field :email, class: "shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md" %>
+                <%= f.email_field :email,
+                              class:
+                                "shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md" %>
               </div>
             </div>
 
             <div class="sm:col-span-6">
               <%= f.label :notes, class: "block text-sm font-medium text-gray-700" %>
               <div class="mt-1">
-                <%= f.text_area :notes, rows: 3, class: "shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md" %>
+                <%= f.text_area :notes,
+                            rows: 3,
+                            class:
+                              "shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md" %>
               </div>
               <p class="mt-2 text-sm text-gray-500">Add any notes about this invitee (optional).</p>
             </div>
 
             <div class="sm:col-span-3">
-              <%= f.label :expires_at, "Invitation Expires At", class: "block text-sm font-medium text-gray-700" %>
+              <%= f.label :expires_at,
+                      "Invitation Expires At",
+                      class: "block text-sm font-medium text-gray-700" %>
               <div class="mt-1">
-                <%= f.datetime_local_field :expires_at, class: "shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md" %>
+                <%= f.datetime_local_field :expires_at,
+                                       class:
+                                         "shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md" %>
               </div>
             </div>
           </div>
 
           <div class="mt-5">
-            <%= f.submit "Add Invitee", class: "inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500" %>
+            <%= f.submit "Add Invitee",
+                     class:
+                       "inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500" %>
           </div>
         <% end %>
       </div>
     </div>
   </div>
-
   <!-- Invitees List -->
   <div class="mt-8">
     <div class="flex flex-col">
       <div class="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
         <div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
-          <div class="overflow-hidden shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">
+          <div
+            class="
+              overflow-hidden shadow ring-1 ring-black ring-opacity-5 md:rounded-lg
+            "
+          >
             <table class="min-w-full divide-y divide-gray-300">
               <thead class="bg-gray-50">
                 <tr>
-                  <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">Name</th>
-                  <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Email</th>
-                  <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Status</th>
-                  <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Score</th>
-                  <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Expires At</th>
+                  <th
+                    scope="col"
+                    class="
+                      py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6
+                    "
+                  >Name</th>
+                  <th
+                    scope="col"
+                    class="
+                      px-3 py-3.5 text-left text-sm font-semibold text-gray-900
+                    "
+                  >Email</th>
+                  <th
+                    scope="col"
+                    class="
+                      px-3 py-3.5 text-left text-sm font-semibold text-gray-900
+                    "
+                  >Status</th>
+                  <th
+                    scope="col"
+                    class="
+                      px-3 py-3.5 text-left text-sm font-semibold text-gray-900
+                    "
+                  >Score</th>
+                  <th
+                    scope="col"
+                    class="
+                      px-3 py-3.5 text-left text-sm font-semibold text-gray-900
+                    "
+                  >Passed</th>
+                  <th
+                    scope="col"
+                    class="
+                      px-3 py-3.5 text-left text-sm font-semibold text-gray-900
+                    "
+                  >Expires At</th>
                   <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-6">
                     <span class="sr-only">Actions</span>
                   </th>
@@ -112,13 +168,17 @@
                       <%= invitee.email %>
                     </td>
                     <td class="whitespace-nowrap px-3 py-4 text-sm">
-                      <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium
-                        <%= case invitee.status
+                      <span
+                        class="
+                          inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium
+                          <%= case invitee.status
                             when 'completed' then 'bg-green-100 text-green-800'
                             when 'in_progress' then 'bg-blue-100 text-blue-800'
                             when 'expired' then 'bg-gray-100 text-gray-800'
                             else 'bg-yellow-100 text-yellow-800'
-                            end %>">
+                            end %>
+                        "
+                      >
                         <%= invitee.status.titleize %>
                       </span>
                     </td>
@@ -126,12 +186,35 @@
                       <%= invitee.score ? "#{invitee.score}%" : "-" %>
                     </td>
                     <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                      <% assignment = invitee.assignments.find_by(test_id: @test.id) %>
+                      <%= assignment.is_passed? ? "Yes" : "No" %>
+                    </td>
+                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                       <%= l(invitee.expires_at, format: :long) if invitee.expires_at %>
                     </td>
-                    <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
+                    <td
+                      class="
+                        relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6
+                      "
+                    >
                       <div class="flex justify-end space-x-3">
-                        <%= button_to "Resend Invitation", resend_invitation_admin_test_invitee_path(@test, invitee), method: :post, class: "text-blue-600 hover:text-blue-900" %>
-                        <%= button_to "Remove", admin_test_invitee_path(@test, invitee), method: :delete, data: { confirm: "Are you sure?" }, class: "text-red-600 hover:text-red-900" %>
+                        <% if invitee.status == 'pending' %>
+                          <%= button_to "Resend Invitation",
+                          resend_invitation_admin_test_invitee_path(@test, invitee),
+                          method: :post,
+                          class: "text-blue-600 hover:text-blue-900" %>
+                        <% else %>
+                          <%= link_to "View",
+                          admin_test_invitee_path(@test, invitee),
+                          class: "text-blue-600 hover:text-blue-900" %>
+                        <% end %>
+                        <%= button_to "Remove",
+                        admin_test_invitee_path(@test, invitee),
+                        method: :delete,
+                        data: {
+                          confirm: "Are you sure?",
+                        },
+                        class: "text-red-600 hover:text-red-900" %>
                       </div>
                     </td>
                   </tr>
@@ -142,13 +225,23 @@
         </div>
       </div>
     </div>
-
     <!-- Pagination -->
     <% if @invitees.total_pages > 1 %>
-      <div class="flex items-center justify-between border-t border-gray-200 bg-white px-4 py-3 sm:px-6 mt-4">
+      <div
+        class="
+          flex items-center justify-between border-t border-gray-200 bg-white px-4 py-3
+          sm:px-6 mt-4
+        "
+      >
         <div class="flex flex-1 justify-between sm:hidden">
-          <%= link_to_previous_page @invitees, 'Previous', class: "relative inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50" %>
-          <%= link_to_next_page @invitees, 'Next', class: "relative ml-3 inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50" %>
+          <%= link_to_previous_page @invitees,
+          "Previous",
+          class:
+            "relative inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50" %>
+          <%= link_to_next_page @invitees,
+          "Next",
+          class:
+            "relative ml-3 inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50" %>
         </div>
         <div class="hidden sm:flex sm:flex-1 sm:items-center sm:justify-between">
           <div>
@@ -163,7 +256,10 @@
             </p>
           </div>
           <div>
-            <nav class="isolate inline-flex -space-x-px rounded-md shadow-sm" aria-label="Pagination">
+            <nav
+              class="isolate inline-flex -space-x-px rounded-md shadow-sm"
+              aria-label="Pagination"
+            >
               <%= paginate @invitees, window: 2 %>
             </nav>
           </div>
@@ -171,4 +267,4 @@
       </div>
     <% end %>
   </div>
-</div> 
+</div>

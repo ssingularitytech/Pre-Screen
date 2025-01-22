@@ -21,6 +21,10 @@ class Assignment < ApplicationRecord
   before_create :initialize_session_data
   before_save :calculate_score, if: :assignment_status_completed?
 
+  def is_passed?
+    score >= test.passing_score
+  end
+
   def start!
     return false if assignment_status_in_progress? || assignment_status_completed?
 
