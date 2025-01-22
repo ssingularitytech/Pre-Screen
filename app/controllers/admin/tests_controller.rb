@@ -90,11 +90,12 @@ module Admin
         
         ActiveRecord::Base.transaction do
           invitees_data.each do |row|
-            @test.invitees.create!(
-              name: row['name'],
-              email: row['email'],
-              expires_at: @test.end_at
-            )
+            invitee = Invitee.find_or_initialize_by(email: row['email']) do |i|
+              i.name = row['name']
+              i.expires_at = @test.end_at
+            end
+
+            @test.invitees << invitee unless @test.invitees.include?(invitee)
           end
         end
 

@@ -63,6 +63,10 @@ class Assignment < ApplicationRecord
     assignment_status_pending?
   end
 
+  def total_questions
+    session_data['questions'].count
+  end
+
   private
 
   def initialize_session_data
