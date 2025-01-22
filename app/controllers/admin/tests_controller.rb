@@ -1,6 +1,8 @@
+require 'csv'
+
 module Admin
   class TestsController < BaseController
-    before_action :set_test, only: [:show, :edit, :update, :destroy, :results, :analytics, :send_bulk_invitations, :import_invitees]
+    before_action :set_test, only: [:show, :edit, :update, :destroy, :results, :analytics, :send_bulk_invitations, :import_invitees, :export_invitees]
 
     def index
       @tests = current_admin_user.tests.includes(:topics, :invitees)
@@ -78,12 +80,7 @@ module Admin
     end
 
     def import_invitees
-      require 'csv'
-
-      if params[:file].nil?
-        redirect_to admin_test_path(@test), alert: 'Please select a file to import.'
-        return
-      end
+      return redirect_to admin_test_path(@test), alert: 'Please select a file to import.' if params[:file].nil?
 
       begin
         invitees_data = CSV.parse(params[:file].read, headers: true)
@@ -104,6 +101,33 @@ module Admin
         redirect_to admin_test_path(@test), alert: 'Invalid CSV file format.'
       rescue ActiveRecord::RecordInvalid => e
         redirect_to admin_test_path(@test), alert: "Error importing invitees: #{e.message}"
+      end
+    end
+
+    def export_invitees
+      invitees = @test.invitees.includes(:assignments)
+      
+      csv_data = CSV.generate(headers: true) do |csv|
+        csv << ['Name', 'Email', 'Status', 'Score', 'Passed']
+        
+        invitees.each do |invitee|
+          assignment = invitee.assignments.find_by(test_id: @test.id)
+          csv << [
+            invitee.name,
+            invitee.email,
+            invitee.status.titleize,
+            assignment&.score || '-',
+            assignment&.is_passed? ? 'Yes' : 'No'
+          ]
+        end
+      end
+
+      respond_to do |format|
+        format.csv do
+          send_data csv_data, 
+            filename: "#{@test.name.parameterize}-invitees-#{Time.current.strftime('%Y%m%d%H%M%S')}.csv",
+            type: 'text/csv'
+        end
       end
     end
 

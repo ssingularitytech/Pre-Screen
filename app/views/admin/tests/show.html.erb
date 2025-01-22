@@ -112,27 +112,133 @@
                   Manage test invitees and view their progress.
                 </p>
               </div>
-              <div class="mt-4 sm:mt-0 flex gap-2">
-                <%= button_to "Send Invitations",
-                send_bulk_invitations_admin_test_path(@test),
-                method: :post,
-                class:
-                  "inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500" %>
-                <%= link_to "Add Invitee",
-                new_admin_test_invitee_path(@test),
-                class:
-                  "inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500" %>
+              <div class="mt-4 sm:mt-0 relative" data-controller="dropdown">
                 <button
                   type="button"
-                  data-action="click->modal#open"
+                  data-action="dropdown#toggle"
                   class="
-                    inline-flex items-center px-4 py-2 border border-transparent rounded-md
-                    shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700
+                    relative z-10 inline-flex items-center p-2 border border-gray-300 rounded-md
+                    shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50
                     focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500
                   "
                 >
-                  Import CSV
+                  <svg
+                    class="h-5 w-5"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                  >
+                    <path
+                      d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z"
+                    />
+                  </svg>
                 </button>
+
+                <div
+                  data-dropdown-target="menu"
+                  class="
+                    hidden origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white
+                    ring-1 ring-black ring-opacity-5 divide-y divide-gray-100 focus:outline-none
+                    z-20
+                  "
+                >
+                  <div class="py-1">
+                    <%= button_to send_bulk_invitations_admin_test_path(@test),
+                        method: :post,
+                        class: "group flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 w-full text-left" do %>
+                      <svg
+                        class="
+                          mr-3 h-5 w-5 text-gray-400 group-hover:text-gray-500
+                        "
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                        />
+                      </svg>
+                      Send Invitations
+                    <% end %>
+
+                    <%= link_to new_admin_test_invitee_path(@test),
+                        class: "group flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900" do %>
+                      <svg
+                        class="
+                          mr-3 h-5 w-5 text-gray-400 group-hover:text-gray-500
+                        "
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M12 4v16m8-8H4"
+                        />
+                      </svg>
+                      Add Invitee
+                    <% end %>
+                  </div>
+
+                  <div class="py-1">
+                    <%= link_to export_invitees_admin_test_path(@test, format: :csv),
+                        class: "group flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900" do %>
+                      <svg
+                        class="
+                          mr-3 h-5 w-5 text-gray-400 group-hover:text-gray-500
+                        "
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                        />
+                      </svg>
+                      Export CSV
+                    <% end %>
+
+                    <button
+                      type="button"
+                      data-action="click->dropdown#hide click->modal#open"
+                      class="
+                        group flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100
+                        hover:text-gray-900 w-full text-left
+                      "
+                    >
+                      <svg
+                        class="
+                          mr-3 h-5 w-5 text-gray-400 group-hover:text-gray-500
+                        "
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
+                        />
+                      </svg>
+                      Import CSV
+                    </button>
+                  </div>
+                </div>
+
+                <div
+                  data-action="click->dropdown#hide"
+                  data-dropdown-target="backdrop"
+                  class="hidden fixed top-0 left-0 h-screen w-screen z-10"
+                ></div>
               </div>
             </div>
             <!-- CSV Import Modal -->
@@ -153,7 +259,7 @@
                   data-modal-target="overlay"
                   data-action="click->modal#close"
                   class="
-                    fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity
+                    fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity z-30
                   "
                   aria-hidden="true"
                 ></div>
@@ -167,7 +273,7 @@
                   class="
                     relative inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left
                     overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle
-                    sm:max-w-lg sm:w-full sm:p-6
+                    sm:max-w-lg sm:w-full sm:p-6 z-40
                   "
                 >
                   <div class="sm:flex sm:items-start">

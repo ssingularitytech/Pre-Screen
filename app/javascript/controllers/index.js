@@ -15,3 +15,6 @@ application.register("csv-upload", CsvUploadController);
 
 import ModalController from "./modal_controller";
 application.register("modal", ModalController);
+
+import DropdownController from "./dropdown_controller";
+application.register("dropdown", DropdownController);
