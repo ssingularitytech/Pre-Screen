@@ -5,6 +5,6 @@
 :scheduler:
   :schedule:
     invitation_job:
-      every: "5m"
+      every: "3m"
       class: InvitationJob
-      description: "Send invitation email to invitees 5 minutes before the test starts"
+      description: "Send invitation email to invitees 3 minutes before the test starts"

@@ -3,7 +3,9 @@ class InviteeMailer < ApplicationMailer
     @invitee = invitee
     @test = invitee.tests.sort_by(&:created_at).last
     host = ENV['HOST']
-    @url = test_url(@test, token: @invitee.token, host: host)
+    @assignment = @invitee.assignments.sort_by(&:created_at).last
+    # here t: is the invitee token, a_t: is the assignment token
+    @url = test_url(@test, t: @invitee.token, host: host, a_t: @assignment.token)
     
     mail(
       to: @invitee.email,

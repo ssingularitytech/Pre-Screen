@@ -2,9 +2,9 @@ class InvitationJob
   include Sidekiq::Job
 
   def perform()
-    # All the tests that the start time is about to start in 10 minutes
+    # All the tests that the start time is about to start in 5 minutes
     current_time = Time.now
-    tests = Test.where('start_at > ?', current_time - 5.minutes).where('start_at < ?', current_time)
+    tests = Test.where('start_at < ?', current_time + 5.minutes).where('start_at > ?', current_time)
     puts "Tests found: #{tests.count}"
     tests.each do |test|  
       test.invitees.each do |invitee|

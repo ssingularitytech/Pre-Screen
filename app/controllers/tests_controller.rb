@@ -9,6 +9,7 @@ class TestsController < ApplicationController
     if @assignment.completed?
       render :completed
     elsif !@assignment.in_progress?
+      @can_start = @test.start_at <= Time.current
       render :start
     else
       @current_question = current_question
@@ -20,15 +21,15 @@ class TestsController < ApplicationController
 
   def start
     if @assignment.start!
-      redirect_to test_path(@test, token: params[:token]), notice: 'Test started!'
+      redirect_to test_path(@test, t: params[:token], a_t: @assignment.token), notice: 'Test started!'
     else
-      redirect_to test_path(@test, token: params[:token]), alert: 'Could not start test.'
+      redirect_to test_path(@test, t: params[:token], a_t: @assignment.token), alert: 'Could not start test.'
     end
   end
 
   def answer
     current_question = @assignment.session_data['questions'].find { |q| q['id'].to_s == params[:question_id].to_s }
-    return redirect_to test_path(@test, token: params[:token]), alert: 'Invalid question.' unless current_question
+    return redirect_to test_path(@test, t: params[:token], a_t: @assignment.token), alert: 'Invalid question.' unless current_question
 
     # Update the answer in session data
     current_question['answered'] = true
@@ -40,9 +41,9 @@ class TestsController < ApplicationController
     # Check if this was the last question
     if @assignment.session_data['questions'].all? { |q| q['answered'] }
       @assignment.complete!
-      redirect_to test_path(@test, token: params[:token]), notice: 'Test completed!'
+      redirect_to test_path(@test, t: params[:token], a_t: @assignment.token), notice: 'Test completed!'
     else
-      redirect_to test_path(@test, token: params[:token]), notice: 'Answer recorded!'
+      redirect_to test_path(@test, t: params[:token], a_t: @assignment.token), notice: 'Answer recorded!'
     end
   end
 
@@ -55,8 +56,8 @@ class TestsController < ApplicationController
   end
 
   def set_assignment
-    @assignment = @test.assignments.joins(:invitee)
-                      .find_by!(invitees: { token: params[:token] })
+    puts "Setting assignment for test #{@test.id} with token #{params[:a_t]} and invitee token #{params[:t]}"
+    @assignment = @test.assignments.joins(:invitee).find_by!(token: params[:a_t])
   rescue ActiveRecord::RecordNotFound
     redirect_to root_path, alert: 'Invalid test access.'
   end
@@ -70,7 +71,7 @@ class TestsController < ApplicationController
 
     if @assignment.completed?
       render :completed
-    elsif @assignment.expired? || Time.current > @invitee.expires_at
+    elsif @assignment.expired?
       render :expired
     end
   end

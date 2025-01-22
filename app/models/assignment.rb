@@ -6,6 +6,7 @@ class Assignment < ApplicationRecord
   # Validations
   validates :test, presence: true
   validates :invitee, presence: true
+  validates :token, presence: true, uniqueness: true
 
   # Enums
   enum :assignment_status, {
@@ -16,6 +17,7 @@ class Assignment < ApplicationRecord
   }, default: :pending, prefix: true
 
   # Callbacks
+  before_validation :generate_token, on: :create
   before_create :initialize_session_data
   before_save :calculate_score, if: :assignment_status_completed?
 
@@ -69,6 +71,13 @@ class Assignment < ApplicationRecord
 
   private
 
+  def generate_token
+    self.token = loop do
+      random_token = SecureRandom.urlsafe_base64(32)
+      break random_token unless self.class.exists?(token: random_token)
+    end
+  end
+  
   def initialize_session_data
     # The limit should be calculated such way:
     # 1 question takes 40 seconds to complete
