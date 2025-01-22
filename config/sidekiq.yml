@@ -1,10 +1,14 @@
 :verbose: false
-:concurrency: <%= ENV.fetch("SIDEKIQ_CONCURRENCY", 5) %>
+:concurrency: 5
 :timeout: 25
+:max_retries: 3
+
+:queues:
+  - default
 
 :scheduler:
   :schedule:
     invitation_job:
-      every: "3m"
+      cron: "*/1 * * * *" # Runs every minute
       class: InvitationJob
-      description: "Send invitation email to invitees 3 minutes before the test starts"
+      queue: default

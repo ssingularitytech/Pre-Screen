@@ -42,7 +42,7 @@ services:
     build:
       context: .
       dockerfile: docker/sidekiq.Dockerfile
-    command: "bundle exec sidekiq"
+    command: ["bundle", "exec", "sidekiq", "-e", "production", "-C", "config/sidekiq.yml"]
     volumes:
       - .:/app
     environment:
