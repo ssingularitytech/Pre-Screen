@@ -22,6 +22,7 @@ class Assignment < ApplicationRecord
   before_save :calculate_score, if: :assignment_status_completed?
 
   def is_passed?
+    return false if score.blank?
     score >= test.passing_score
   end
 
